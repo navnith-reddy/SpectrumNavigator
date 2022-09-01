@@ -6,8 +6,8 @@ import numpy as np
 
 def getRRL ():
     response = requests.get("https://web.acma.gov.au/rrl-updates/spectra_rrl.zip")
-    open('spectra_rrl.zip', 'wb').write(response.content)
-    with zipfile.ZipFile("spectra_rrl.zip", 'r') as zip_ref:
+    open('RRL/spectra_rrl.zip', 'wb').write(response.content)
+    with zipfile.ZipFile("RRL/spectra_rrl.zip", 'r') as zip_ref:
         zip_ref.extractall("./RRL")
     return
 
