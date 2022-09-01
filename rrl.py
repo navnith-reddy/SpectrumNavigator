@@ -1,21 +1,28 @@
-from urllib import response
 import pandas as pd
+import numpy as np
 import requests
 import zipfile
-import numpy as np
+import os
 
 def getRRL ():
+    """Downloads Register of Radiocommuncation Licences"""
+    
+    if not os.path.exists("./RRL"):
+        os.makedirs("./RRL")
+    
     response = requests.get("https://web.acma.gov.au/rrl-updates/spectra_rrl.zip")
     open('RRL/spectra_rrl.zip', 'wb').write(response.content)
+    
     with zipfile.ZipFile("RRL/spectra_rrl.zip", 'r') as zip_ref:
         zip_ref.extractall("./RRL")
+        
     return
 
 
 def getSpecData ():
-
+    """Creates dataframe and CSV file of Spectrum Licence information from RRL"""
     # From licence database, create dataset for spectrum licences
-    licence = pd.read_csv('licence.csv')
+    licence = pd.read_csv('RRL/licence.csv')
 
     # Column tidy
     licence.drop(columns=[
@@ -38,11 +45,11 @@ def getSpecData ():
     specLicence = specLicence.astype({'LICENCE_NO':'int64', 'CLIENT_NO' : 'int64'})
 
     # Frequency dataset
-    freq = pd.read_csv('auth_spectrum_freq.csv')
+    freq = pd.read_csv('RRL/auth_spectrum_freq.csv')
     freq = freq.astype({'LICENCE_NO':'int64'})
 
     # HCIS codes for frequency ranges
-    area = pd.read_csv('auth_spectrum_area.csv')
+    area = pd.read_csv('RRL/auth_spectrum_area.csv')
     area = area.astype({'LICENCE_NO':'int64'})
 
     # Merge frequency dataset on spectrum licence dataset index
