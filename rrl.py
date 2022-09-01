@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import requests
 import zipfile
 import os
@@ -7,12 +6,15 @@ import os
 def getRRL ():
     """Downloads Register of Radiocommuncation Licences"""
     
+    # Create RRL folder if it doesn't exist
     if not os.path.exists("./RRL"):
         os.makedirs("./RRL")
     
+    # Download RRL daily extract zip from ACMA website
     response = requests.get("https://web.acma.gov.au/rrl-updates/spectra_rrl.zip")
     open('RRL/spectra_rrl.zip', 'wb').write(response.content)
     
+    # Extract zip file
     with zipfile.ZipFile("RRL/spectra_rrl.zip", 'r') as zip_ref:
         zip_ref.extractall("./RRL")
         
@@ -21,6 +23,7 @@ def getRRL ():
 
 def getSpecData ():
     """Creates dataframe and CSV file of Spectrum Licence information from RRL"""
+    
     # From licence database, create dataset for spectrum licences
     licence = pd.read_csv('RRL/licence.csv')
 
@@ -89,3 +92,17 @@ def getSpecData ():
     SpecData.to_csv('SpectrumData.csv', index=False)
     
     return SpecData
+
+def searchSpecData (SpecData, clientIDs):
+    """Queries SpecData for licence information for given Client numbers
+
+    Args:
+        SpecData (Dataframe): Composite spectrum licence dataframe
+        clientIDs (List): Comma separated client numbers
+
+    Returns:
+        clientData (Dataframe): Spectrum licences of provided client IDs
+    """
+    
+    clientData = SpecData
+    return clientData
