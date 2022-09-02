@@ -93,20 +93,6 @@ def getSpecData ():
     
     return SpecData
 
-def searchSpecData (SpecData, clientIDs):
-    """Queries SpecData for licence information for given Client numbers
-
-    Args:
-        SpecData (Dataframe): Composite spectrum licence dataframe
-        clientIDs (List): Comma separated client numbers
-
-    Returns:
-        clientData (Dataframe): Spectrum licences of provided client IDs
-    """
-    
-    clientData = SpecData
-    return clientData
-
 def clientSearch(SpecData, clientIDs):
     """Generates dataframe containing spectrum licence information for input client numbers.
 

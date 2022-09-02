@@ -1,4 +1,5 @@
 import rrl
+import HCIS
 import pandas as pd
 
 # Rudimentary CLI
