@@ -128,6 +128,22 @@ def clientSearch(SpecData, clientIDs):
     clientData = SpecData[SpecData['CLIENT_NO'].isin(clientIDs)]
     clientData.reset_index(inplace=True)
     
-    # No spectrum licences for given client number found
+    # No spectrum licences for client(s) number found (GUI)
     
-    return clientData
+    # Generate client holding summary
+    clientSummary = pd.DataFrame(clientIDs, columns=['CLIENT_NO'])
+    holdingBandwidth = []
+
+    for clientNum in list(clientIDs):
+        
+        holding = clientData[clientData['CLIENT_NO'] == clientNum]
+        holdingBandwidth.append(holding['BANDWIDTH'].sum())
+
+    clientSummary['TOTAL_BANDWIDTH_MHz'] = pd.Series(holdingBandwidth)/1000000
+
+    # Fetch client name
+    clients = pd.read_csv("RRL/client.csv")
+    clients = clients[clients['CLIENT_NO'].isin(clientIDs)].reset_index()
+    clientSummary = clientSummary.assign(LICENCEE=clients['LICENCEE'])
+
+    return clientData, clientSummary
