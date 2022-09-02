@@ -106,3 +106,28 @@ def searchSpecData (SpecData, clientIDs):
     
     clientData = SpecData
     return clientData
+
+def clientSearch(SpecData, clientIDs):
+    """Generates dataframe containing spectrum licence information for input client numbers.
+
+    Args:
+        SpecData (Dataframe): RRL composite dataset of spectrum licence info.
+        clientIDs (List): List of client numbers to be used as search keys.
+
+    Returns:
+        clientData (Dataframe): Dataframe containing spectrum licence info for specified client numbers.
+    """
+    
+    # Parse inputs
+    clientIDs = pd.Series(list(clientIDs.split(',')))
+    clientIDs = clientIDs.astype('int64')
+    
+    # Input verification
+
+    # Search spectrum dataset
+    clientData = SpecData[SpecData['CLIENT_NO'].isin(clientIDs)]
+    clientData.reset_index(inplace=True)
+    
+    # No spectrum licences for given client number found
+    
+    return clientData
