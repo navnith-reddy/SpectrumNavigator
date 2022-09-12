@@ -115,7 +115,7 @@ def clientSearch(SpecData, clientIDs):
 
     # Search spectrum dataset
     clientData = SpecData[SpecData['CLIENT_NO'].isin(clientIDs)]
-    clientData.reset_index(inplace=True)
+    clientData.reset_index(drop=True, inplace=True)
     
     # No spectrum licences for client(s) number found (GUI)
     
