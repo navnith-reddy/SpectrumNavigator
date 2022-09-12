@@ -1,7 +1,10 @@
 import pandas as pd
+import geopandas as gpd
 import requests
 import zipfile
 import os
+
+pd.options.mode.chained_assignment = None
 
 def getRRL ():
     """Downloads Register of Radiocommuncation Licences"""
@@ -133,3 +136,28 @@ def clientSearch(SpecData, clientIDs):
     clientSummary = clientSummary.assign(LICENCEE=clients['LICENCEE'])
 
     return clientData, clientSummary
+
+def buildgdf (clientData, asmg):
+    """Takes clientData dataframe and generates a geodataframe containing HCIS polygons.
+
+    Args:
+        clientData (DataFrame): Client search results
+        asmg (GeoDataFrame): Geodataframe of HCIS cells
+
+    Returns:
+        gdf (GeoDataFrame): Client search results with HCIS polygons
+    """
+    hcis = []
+
+    for cells in clientData['AREA_DESCRIPTION']:
+        cells = pd.Series(list(cells.split(', ')))
+        clientArea = asmg[asmg['HCIS_ID'].isin(cells)]
+        clientArea.reset_index(inplace=True)
+        poly = clientArea['geometry']
+        hcis.append(poly.unary_union)
+
+    hcis = gpd.GeoSeries(hcis, crs='EPSG:4283')
+    clientData['geometry'] = hcis
+    gdf = gpd.GeoDataFrame(clientData)
+    
+    return gdf

@@ -1,8 +1,10 @@
 import geopandas as gpd
+import contextily as cx
 import pandas as pd
 import requests
 import os
 import zipfile
+from matplotlib import pyplot as plt
 
 def getASMG():
     """Downloads Australian Spectrum Map Grid shapefiles"""
@@ -22,10 +24,8 @@ def getASMG():
     return
 
 def buildASMG():
-    """Returns geodataframe of ASMG for EVERY HCIS ID.
+    """Build and save geodataframe of ASMG for EVERY HCIS ID as csv file.
 
-    Returns:
-        asmg (geodataframe): geodataframe containing every HCIS cell.
     """
     
     l1 = gpd.read_file("ASMG/ASMG_2012_GDA94_L1.shp")
@@ -44,5 +44,24 @@ def buildASMG():
     l4.rename(columns={'HCI_Level4':'HCIS_ID'}, inplace=True)
 
     asmg = pd.concat([l1, l2, l3, l4])
+    asmg.to_file('ASMG')
     
-    return asmg
+    return
+
+def preview (gdf, name):
+    """
+
+    Args:
+        gdf (Geodataframe): Australian Geodataframe
+        name (string): Filename of result
+
+    Returns:
+        result (plot): Plot of gdf
+    """
+    
+    world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+    ax = world[world.name == 'Australia'].plot(color='white', edgecolor='black')
+    result = gdf.plot(ax=ax, color='teal')
+    plt.savefig(name + '.png')
+    
+    return result
