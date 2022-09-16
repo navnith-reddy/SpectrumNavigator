@@ -21,6 +21,7 @@ summaryName = searchName + '/Summary.csv'
 clientData.to_csv(filename, index=False)
 clientSummary.to_csv(summaryName, index=False)
 
+# --------- NEED TO FIX NAMING CONVENTIONS FOR COMPARISON-----------
 # Convert search results to geodataframe and save as shapefiles
 asmg = gpd.read_file('ASMG/asmg.shp')
 gdf = rrl.buildgdf(clientData, asmg)
