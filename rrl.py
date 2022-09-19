@@ -159,5 +159,14 @@ def buildgdf (clientData, asmg):
     hcis = gpd.GeoSeries(hcis, crs='EPSG:4283')
     clientData['geometry'] = hcis
     gdf = gpd.GeoDataFrame(clientData)
+    gdf.rename(columns = {
+    "LW_FREQUENCY_START" : "LFREQ_START",
+    "LW_FREQUENCY_END" : "LWFREQ_END",
+    "UP_FREQUENCY_START" : "HIFREQ_START",
+    "UP_FREQUENCY_END" : "HIFREQ_END",
+    "UP_BW" : "HI_BW",
+    "LICENCE_CATEGORY_NAME" : "BAND",
+    "AREA_DESCRIPTION" : "HCIS"
+    }, inplace = True)
     
     return gdf
