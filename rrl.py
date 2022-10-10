@@ -111,13 +111,17 @@ def clientSearch(SpecData, clientIDs):
     clientIDs = pd.Series(list(clientIDs.split(',')))
     clientIDs = clientIDs.astype('int64')
     
-    # Input verification
+    # Input verification - // TO DO
 
     # Search spectrum dataset
     clientData = SpecData[SpecData['CLIENT_NO'].isin(clientIDs)]
     clientData.reset_index(drop=True, inplace=True)
     
     # No spectrum licences for client(s) number found (GUI)
+    
+    if clientData.empty:
+        raise ValueError('No entries with provided client number')
+            
     
     # Generate client holding summary
     clientSummary = pd.DataFrame(clientIDs, columns=['CLIENT_NO'])
