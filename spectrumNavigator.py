@@ -3,27 +3,64 @@ import HCIS
 import os
 import geopandas as gpd
 import pandas as pd
+import customtkinter as ct
 
-# Rudimentary CLI
-clientIDs = input("Please enter comma separated client IDs: ")
-searchName = input("Please enter search name: ")
+def clientExtract (clientIDs, data, asmg):
 
-os.mkdir(searchName)
+    # Perform search on RRL with client ID keys
+    clientData, clientSummary = rrl.clientSearch(data, clientIDs)
+    
+    # Create a geodataframe from clientData
+    gdf = rrl.buildgdf(clientIDs, asmg)
+    
+    return gdf,
 
-data = rrl.getSpecData()
+def licenceExtract (licenceNums):
+    
+    return
 
-# Perform search on RRL with client ID keys
-clientData, clientSummary = rrl.clientSearch(data, clientIDs)
-filename = searchName + '/data.csv'
-summaryName = searchName + '/Summary.csv'
+def holdingsSummary (clientNums):
+    
+    return
 
-# Save search results as csv files
-clientData.to_csv(filename, index=False)
-clientSummary.to_csv(summaryName, index=False)
+# INITIALISE
+#data = rrl.readSpecData()
+#asmg = HCIS.buildASMG()
 
-# --------- NEED TO FIX NAMING CONVENTIONS FOR COMPARISON-----------
-# Convert search results to geodataframe and save as shapefiles
-asmg = gpd.read_file('ASMG/asmg.shp')
-gdf = rrl.buildgdf(clientData, asmg)
-HCIS.preview(gdf, searchName + '/preview')
-gdf.to_file(searchName+'/shapefile')
+import tkinter as tk
+
+ct.set_appearance_mode("light")
+ct.set_default_color_theme("green")
+
+app = ct.CTk()
+app.geometry("1200x400")
+
+
+def doLicExtract():
+    dialog = ct.CTkInputDialog(master=None, text="Type in a Licence number:", title="Test")
+    print("Licence Number:", dialog.get_input())
+    
+def doCliExtract():
+    dialog = ct.CTkInputDialog(master=None, text="Type in a Client ID:", title="Test")
+    print("Client ID:", dialog.get_input())
+    
+def doPoly2HCIS():
+    dialog = ct.CTkInputDialog(master=None, text="Type in a Client ID:", title="Test")
+    print("Client ID:", dialog.get_input())
+
+def doHoldings():
+    dialog = ct.CTkInputDialog(master=None, text="Type in a Client ID:", title="Test")
+    print("Client ID:", dialog.get_input())
+
+
+
+licButton = ct.CTkButton(app, text="Licence Extract", command=doLicExtract)
+licButton.place(relx=0.25, rely=0.5, anchor=tk.CENTER)
+
+cliButton = ct.CTkButton(app, text="Client Extract", command=doCliExtract)
+cliButton.place(relx=0.50, rely=0.5, anchor=tk.CENTER)
+
+cliButton = ct.CTkButton(app, text="HCIS Conversion", command=doCliExtract)
+cliButton.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
+
+app.mainloop()
