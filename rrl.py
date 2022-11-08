@@ -1,8 +1,23 @@
+# ---------------------------------------------------------------
+# ---- Register of Radiocommunication Licences (RRL) Library ----
+# ---------------------------------------------------------------
+# Australian Communications Media Authority
+# Navnith Reddy, November 2022
+
+# The RRL library provides support functions designed to assist
+# data processing operations utilizing the ACMA's  publicly 
+# available RRL database.
+
 import pandas as pd
 import geopandas as gpd
 import requests
 import zipfile
 import os
+
+# FUNCTION NAMING CONVENTION:
+# -> 'get' functions download assets from ACMA website
+# -> 'build' functions create assets based on downloaded assets
+# -> 'read' functions are build functions that return variables
 
 pd.options.mode.chained_assignment = None
 
@@ -24,7 +39,7 @@ def getRRL ():
     return
 
 
-def getSpecData ():
+def readSpecData ():
     """Creates dataframe and CSV file of Spectrum Licence information from RRL"""
     
     # From licence database, create dataset for spectrum licences
