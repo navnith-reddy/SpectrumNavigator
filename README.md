@@ -6,7 +6,11 @@ Spectrum Navigator is accompanied by two spectrum management libraries that prov
 
 ## Licence Extract
 
+The licence extract feature takes licence numbers, searches the RRL and generates a shapefile based on the associated HCIS IDs. Multiple licence number inputs will be grouped to distinguish licence areas.
+
 ## Client Extract
+
+The client extract feature takes a client ID, searches the RRL and generates a shapefile based on associated HCIS IDs. Unlike the licence extract, the client extract will also feature a client summary.
 
 ## Holdings Summary
 
