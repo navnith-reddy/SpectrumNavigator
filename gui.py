@@ -1,4 +1,5 @@
 import customtkinter as ct
+import tkinter as tk
 
 def doLicExtract():
     dialog = ct.CTkInputDialog(master=None, text="Type in a Licence number:", title="Test")
