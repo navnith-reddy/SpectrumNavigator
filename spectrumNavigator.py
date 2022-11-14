@@ -1,6 +1,11 @@
-
+import rrl
+import HCIS
 import os
 import gui
+import geopandas as gpd
+import pandas as pd
+import customtkinter as ct
+import tkinter as tk
 
 def clientExtract (clientIDs, data, asmg):
 
@@ -32,4 +37,3 @@ app.geometry("600x400")
 # INITIALISE
 #data = rrl.readSpecData()
 #asmg = HCIS.buildASMG()
-
