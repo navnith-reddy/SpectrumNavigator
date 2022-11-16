@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 class App(ct.CTk):
     
     # Window dimensions as class attributes
-    WIDTH = 780
+    WIDTH = 980
     HEIGHT = 520
     
     def __init__(self):
@@ -29,7 +29,7 @@ class App(ct.CTk):
         # --------------------- CREATE TWO FRAMES ------------------------
         
         self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=2)
+        self.grid_columnconfigure(1, weight=3)
         self.grid_rowconfigure(0, weight=1)
         
         self.panel = ct.CTkFrame(master=self, width=180, corner_radius=0)
@@ -106,7 +106,7 @@ class App(ct.CTk):
         
         # Recreate two frames
         self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=2)
+        self.grid_columnconfigure(1, weight=3)
         self.grid_rowconfigure(0, weight=1)
         
         self.panel = ct.CTkFrame(master=self, width=180, corner_radius=0)
@@ -129,6 +129,9 @@ class App(ct.CTk):
     # Open Licence Extract 
     def doLicExtract(self):
         
+        # Debug message
+        print("Licence Number button pressed")
+        
         # Clear window
         self.blank()
         
@@ -137,34 +140,57 @@ class App(ct.CTk):
         # Setup panel grid
         self.panel.grid_columnconfigure(0, weight=1)
         self.panel.grid_rowconfigure(2, weight=2)
-        self.panel.grid_rowconfigure(9, weight=1)
+        self.panel.grid_rowconfigure(9, weight=0)
         
         # Licence Number Entry
         LicNumPrompt = ct.CTkLabel(master=self.panel,
                                   text="Licence Number(s):",
                                   text_font=('Arial', -16))
-        LicNumPrompt.grid(row=1, column=0)
+        LicNumPrompt.grid(row=1, column=0, pady=20)
         
         LicNumEntry = ct.CTkEntry(master=self.panel,
                                   placeholder_text="Enter a single licence number \n or comma separated licence numbers",
+                                  height=200,
                                   border_width=2,
                                   corner_radius=10)
-        LicNumEntry.grid(row=2, column=0, sticky='nswe', padx=10, pady=10)
+        LicNumEntry.grid(row=2, column=0, sticky='nswe', padx=30, pady=10)
         
-        LicNumEntry = ct.CTkEntry(master=self.panel,
-                                  placeholder_text="Enter a single licence number \n or comma separated licence numbers",
-                                  border_width=2,
-                                  corner_radius=10)
-        LicNumEntry.grid(row=2, column=0, sticky='nswe', padx=10, pady=10)
+        # Generate Button
+        genBtn = ct.CTkButton(master=self.panel, 
+                                text="Generate", 
+                                command=self.back)
+        genBtn.grid(row=6, column=0, padx = 30, pady = 30, sticky='nswe')
         
         # Back Button
         backBtn = ct.CTkButton(master=self.panel, 
                                 text="Back", 
                                 command=self.back)
-        backBtn.grid(row=8, column=0, padx = 30, pady = 30, sticky='nswe')
+        backBtn.grid(row=8, column=0, padx = 30, pady = 30)
         
-        print("Licence Number button pressed")
-    
+        # -------------------------- RIGHT FRAME -------------------------
+
+        # Setup panel grid
+        self.right.grid_columnconfigure(0, weight=1)
+        self.right.grid_rowconfigure(2, weight=8)
+        self.right.grid_rowconfigure(9, weight=1)
+        
+        # Preview
+        PreviewTitle = ct.CTkLabel(master=self.right,
+                                  text="Preview",
+                                  text_font=('Arial', -22))
+        PreviewTitle.grid(row=1, column=0, padx=5, pady=20, sticky='w')
+
+        PreviewFrame = ct.CTkFrame(master=self.right,
+                                   width=140,
+                                   corner_radius=10)
+        PreviewFrame.grid(row=2, column=0, padx=30, pady=0, sticky='nswe')
+        
+        # Export
+        exportBtn = ct.CTkButton(master=self.right, 
+                                text="Export", 
+                                command=self.back)
+        exportBtn.grid(row=9, column=0, padx = 30, pady =0, sticky='e')
+        
     def doCliExtract(self):
         
         # Clear window
