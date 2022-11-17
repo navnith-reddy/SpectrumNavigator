@@ -136,7 +136,11 @@ def clientSearch(SpecData, clientIDs):
     if clientData.empty:
         
         raise ValueError('No entries with provided client number')
-            
+
+    return clientData
+
+def clientSummary (SpecData, clientIDs, clientData):
+    
     # Generate client holding summary
     clientSummary = pd.DataFrame(clientIDs, columns=['CLIENT_NO'])
     holdingBandwidth = []
@@ -147,13 +151,13 @@ def clientSearch(SpecData, clientIDs):
         holdingBandwidth.append(holding['BANDWIDTH'].sum())
 
     clientSummary['TOTAL_BANDWIDTH_MHz'] = pd.Series(holdingBandwidth)/1000000
-
+    
     # Fetch client name
     clients = pd.read_csv("RRL/client.csv")
     clients = clients[clients['CLIENT_NO'].isin(clientIDs)].reset_index()
     clientSummary = clientSummary.assign(LICENCEE=clients['LICENCEE'])
-
-    return clientData, clientSummary
+    
+    return clientSummary
 
 def buildgdf (clientData, asmg):
     """Takes clientData dataframe and generates a geodataframe containing HCIS polygons.

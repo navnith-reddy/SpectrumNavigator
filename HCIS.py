@@ -55,6 +55,7 @@ def getExtASMG0():
     
     return
 
+# //////////////////////////// NEEDS FIXING ///////////////////////////////////
 def buildASMG():
     """Build and save geodataframe of ASMG for EVERY HCIS ID as csv file.
 
