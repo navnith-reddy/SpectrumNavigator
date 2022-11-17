@@ -4,6 +4,8 @@ Spectrum Navigator is a spectrum data management tool developed for the Australi
 
 Spectrum Navigator is accompanied by two spectrum management libraries that provide extended functionality such as unique Hierarchial Cell Identifier Scheme (HCIS) sequence detection, HCIS to shapefile conversion, build and compilation of primary ASMG and RRL files and automated database retrieval.
 
+![landingPage](landingPage.png)
+
 ## Licence Extract
 
 The licence extract feature takes licence numbers, searches the RRL and generates a shapefile based on the associated HCIS IDs. Multiple licence number inputs will be grouped to distinguish licence areas.
@@ -15,3 +17,5 @@ The client extract feature takes a client ID, searches the RRL and generates a s
 ## Holdings Summary
 
 ## Shapefile to HCIS Cell
+
+> MEMORY LEAK IN GUI

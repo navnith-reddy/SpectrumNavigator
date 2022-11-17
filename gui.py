@@ -46,6 +46,7 @@ class App(ct.CTk):
         self.panel.grid_rowconfigure(1, weight=1)
         self.panel.grid_rowconfigure(2, weight=1)
         self.panel.grid_rowconfigure(3, weight=1)
+        self.panel.grid_rowconfigure(4, weight=1)
        
         # Setup Panel Prompt
         prompt = ct.CTkLabel(master=self.panel,
@@ -63,11 +64,16 @@ class App(ct.CTk):
                                 text="Client Extract", 
                                 command=self.doCliExtract)
         cliButton.grid(row=2, column=0, padx = 30, pady = 30, sticky='nswe')
+        
+        holdingsButton = ct.CTkButton(master=self.panel, 
+                                text="Holdings Summary", 
+                                command=self.doHoldings)
+        holdingsButton.grid(row=3, column=0, padx = 30, pady = 30, sticky='nswe')
 
         hcisButton = ct.CTkButton(master=self.panel, 
                                 text="HCIS Conversion", 
                                 command=self.doPoly2HCIS)
-        hcisButton.grid(row=3, column=0, padx = 30, pady = 30, sticky='nswe')
+        hcisButton.grid(row=4, column=0, padx = 30, pady = 30, sticky='nswe')
         
         # -------------------------- RIGHT FRAME -------------------------
         
@@ -149,7 +155,7 @@ class App(ct.CTk):
         LicNumPrompt.grid(row=1, column=0, pady=20)
         
         LicNumEntry = ct.CTkEntry(master=self.panel,
-                                  placeholder_text="Enter a single licence number \n or comma separated licence numbers",
+                                  placeholder_text="Enter licence number(s)   ",
                                   height=200,
                                   border_width=2,
                                   corner_radius=10)
@@ -193,24 +199,180 @@ class App(ct.CTk):
         
     def doCliExtract(self):
         
+        print("Client ID button pressed")
+        
         # Clear window
         self.blank()
         
-        print("Client ID button pressed")
+        # -------------------------- PANEL -------------------------------
+        
+        # Setup panel grid
+        self.panel.grid_columnconfigure(0, weight=1)
+        self.panel.grid_rowconfigure(2, weight=2)
+        self.panel.grid_rowconfigure(9, weight=0)
+        
+        # Licence Number Entry
+        CliNumPrompt = ct.CTkLabel(master=self.panel,
+                                  text="Client Number(s):",
+                                  text_font=('Arial', -16))
+        CliNumPrompt.grid(row=1, column=0, pady=20)
+        
+        CliNumEntry = ct.CTkEntry(master=self.panel,
+                                  placeholder_text="Enter client number(s)   ",
+                                  height=200,
+                                  border_width=2,
+                                  corner_radius=10)
+        CliNumEntry.grid(row=2, column=0, sticky='nswe', padx=30, pady=10)
+        
+        # Generate Button
+        genBtn = ct.CTkButton(master=self.panel, 
+                                text="Generate", 
+                                command=self.back)
+        genBtn.grid(row=6, column=0, padx = 30, pady = 30, sticky='nswe')
+        
+        # Back Button
+        backBtn = ct.CTkButton(master=self.panel, 
+                                text="Back", 
+                                command=self.back)
+        backBtn.grid(row=8, column=0, padx = 30, pady = 30)
+        
+        # -------------------------- RIGHT FRAME -------------------------
+
+        # Setup panel grid
+        self.right.grid_columnconfigure(0, weight=1)
+        self.right.grid_rowconfigure(2, weight=8)
+        self.right.grid_rowconfigure(9, weight=1)
+        
+        # Preview
+        PreviewTitle = ct.CTkLabel(master=self.right,
+                                  text="Preview",
+                                  text_font=('Arial', -22))
+        PreviewTitle.grid(row=1, column=0, padx=5, pady=20, sticky='w')
+
+        PreviewFrame = ct.CTkFrame(master=self.right,
+                                   width=140,
+                                   corner_radius=10)
+        PreviewFrame.grid(row=2, column=0, padx=30, pady=0, sticky='nswe')
+        
+        # Export
+        exportBtn = ct.CTkButton(master=self.right, 
+                                text="Export", 
+                                command=self.back)
+        exportBtn.grid(row=9, column=0, padx = 30, pady =0, sticky='e')
     
     def doPoly2HCIS(self):
         
+        print("HCIS Conversion button pressed")
+        
         # Clear window
         self.blank()
         
-        print("HCIS Conversion button pressed")
+        # -------------------------- PANEL -------------------------------
+        
+        # Setup panel grid
+        self.panel.grid_columnconfigure(0, weight=1)
+        self.panel.grid_rowconfigure(2, weight=2)
+        self.panel.grid_rowconfigure(9, weight=0)
+        
+        # /////////////////INCLUDE POLY2HCIS PANEL OPTIONS////////////////
+        
+        # Generate Button
+        genBtn = ct.CTkButton(master=self.panel, 
+                                text="Generate", 
+                                command=self.back)
+        genBtn.grid(row=6, column=0, padx = 30, pady = 30, sticky='nswe')
+        
+        # Back Button
+        backBtn = ct.CTkButton(master=self.panel, 
+                                text="Back", 
+                                command=self.back)
+        backBtn.grid(row=8, column=0, padx = 30, pady = 30)
+        
+        # -------------------------- RIGHT FRAME -------------------------
+
+        # Setup panel grid
+        self.right.grid_columnconfigure(0, weight=1)
+        self.right.grid_rowconfigure(2, weight=8)
+        self.right.grid_rowconfigure(9, weight=1)
+        
+        # Preview
+        PreviewTitle = ct.CTkLabel(master=self.right,
+                                  text="Preview",
+                                  text_font=('Arial', -22))
+        PreviewTitle.grid(row=1, column=0, padx=5, pady=20, sticky='w')
+
+        PreviewFrame = ct.CTkFrame(master=self.right,
+                                   width=140,
+                                   corner_radius=10)
+        PreviewFrame.grid(row=2, column=0, padx=30, pady=0, sticky='nswe')
+        
+        # Export
+        exportBtn = ct.CTkButton(master=self.right, 
+                                text="Export", 
+                                command=self.back)
+        exportBtn.grid(row=9, column=0, padx = 30, pady =0, sticky='e')
 
     def doHoldings(self):
         
+        print("Holdings button pressed")
+        
         # Clear window
         self.blank()
         
-        print("Holdings button pressed")
+        # -------------------------- PANEL -------------------------------
+        
+        # Setup panel grid
+        self.panel.grid_columnconfigure(0, weight=1)
+        self.panel.grid_rowconfigure(2, weight=2)
+        self.panel.grid_rowconfigure(9, weight=0)
+        
+        holdingsPrompt = ct.CTkLabel(master=self.panel,
+                                  text="Client Number(s):",
+                                  text_font=('Arial', -16))
+        holdingsPrompt.grid(row=1, column=0, pady=20)
+        
+        holdingsEntry = ct.CTkEntry(master=self.panel,
+                                  placeholder_text="Enter client number(s)   ",
+                                  height=200,
+                                  border_width=2,
+                                  corner_radius=10)
+        holdingsEntry.grid(row=2, column=0, sticky='nswe', padx=30, pady=10)
+        
+        # Generate Button
+        genBtn = ct.CTkButton(master=self.panel, 
+                                text="Generate", 
+                                command=self.back)
+        genBtn.grid(row=6, column=0, padx = 30, pady = 30, sticky='nswe')
+        
+        # Back Button
+        backBtn = ct.CTkButton(master=self.panel, 
+                                text="Back", 
+                                command=self.back)
+        backBtn.grid(row=8, column=0, padx = 30, pady = 30)
+        
+        # -------------------------- RIGHT FRAME -------------------------
+
+        # Setup panel grid
+        self.right.grid_columnconfigure(0, weight=1)
+        self.right.grid_rowconfigure(2, weight=8)
+        self.right.grid_rowconfigure(9, weight=1)
+        
+        # Preview
+        PreviewTitle = ct.CTkLabel(master=self.right,
+                                  text="Preview",
+                                  text_font=('Arial', -22))
+        PreviewTitle.grid(row=1, column=0, padx=5, pady=20, sticky='w')
+
+        PreviewFrame = ct.CTkFrame(master=self.right,
+                                   width=140,
+                                   corner_radius=10)
+        PreviewFrame.grid(row=2, column=0, padx=30, pady=0, sticky='nswe')
+        
+        # Export
+        exportBtn = ct.CTkButton(master=self.right, 
+                                text="Export", 
+                                command=self.back)
+        exportBtn.grid(row=9, column=0, padx = 30, pady =0, sticky='e')
     
 if __name__ == "__main__":
     app = App()
