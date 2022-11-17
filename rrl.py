@@ -169,6 +169,9 @@ def buildgdf (clientData, asmg):
     Returns:
         gdf (GeoDataFrame): Client search results with HCIS polygons
     """
+    # Index reset to line up geoseries append
+    clientData.reset_index(drop=True, inplace=True)
+    
     hcis = []
 
     for cells in clientData['AREA_DESCRIPTION']:
